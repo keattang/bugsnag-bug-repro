@@ -1,8 +1,9 @@
 {
   "dependencies": {
-    "babel-preset-env": "^1.6.0",
-    "bugsnag": "^1.12.0",
-    "koa": "^2.3.0"
+    "@bugsnag/js": "^6.3.2",
+    "@bugsnag/plugin-koa": "^6.3.0",
+    "babel-preset-env": "^1.7.0",
+    "koa": "^2.7.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0"

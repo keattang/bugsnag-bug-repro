@@ -1,14 +1,21 @@
 import Koa from 'koa'
-import bugsnag from 'bugsnag';
+import Bugsnag from '@bugsnag/js';
+import bugsnagKoa from '@bugsnag/plugin-koa';
 
-bugsnag.register('YOUR-API-KEY-HERE', {
+const bugsnag = Bugsnag({
+    apiKey: 'YOUR-API-KEY-HERE',
     releaseStage: 'development',
     notifyReleaseStages: ['production'],
 });
 
-const app = new Koa();
-app.on('error', bugsnag.koaHandler);
+bugsnag.use(bugsnagKoa);
 
+const middleware = bugsnag.getPlugin('koa')
+
+const app = new Koa();
+app.on('error', middleware.errorHandler);
+
+app.use(middleware.requestHandler)
 app.use(async ctx => {
     throw new Error('Some error occured');
     ctx.body = 'Hello World';
